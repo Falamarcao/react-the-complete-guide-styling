@@ -2,6 +2,10 @@ import { useState } from 'react';
 
 import { styled } from 'styled-components';
 
+import Button from './Button';
+import Input from './Input';
+import TextButton from './TextButton';
+
 const ControlContainer = styled.div`
   display: flex;
   flex-direction: column;
@@ -11,68 +15,6 @@ const ControlContainer = styled.div`
 
 // Transient props (prefixed with $) are used to pass props to styled components
 // without adding them to the DOM element's attributes.
-interface LabelProps {
-  $invalid: boolean;
-}
-
-const Label = styled.label<LabelProps>`
-  display: block;
-  margin-bottom: 0.5rem;
-  font-size: 0.75rem;
-  font-weight: 700;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
-  color: ${({ $invalid }) => ($invalid ? '#f87171' : '#6b7280')};
-`;
-
-interface InputProps {
-  $invalid: boolean;
-}
-
-const Input = styled.input<InputProps>`
-  width: 100%;
-  padding: 0.75rem 1rem;
-  line-height: 1.5;
-
-  border-radius: 0.25rem;
-  box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
-  ${({ $invalid }) =>
-    $invalid
-      ? `
-  color: #ef4444;
-  border-color: #f73f3f;
-  background-color: #fed2d2;
-  `
-      : `
-  color: #374151;
-  border: 1px solid transparent;
-  background-color: #d1d5db;
-  `}
-`;
-
-const Button = styled.button`
-  padding: 1rem 2rem;
-  font-weight: 600;
-  text-transform: uppercase;
-  border-radius: 0.25rem;
-  color: #1f2937;
-  background-color: #f0b322;
-  border-radius: 6px;
-  border: none;
-
-  &:hover {
-    background-color: #f0920e;
-  }
-`;
-
-const TextButton = styled.button`
-  color: #f0b322;
-  border: none;
-
-  &:hover {
-    color: #f0920e;
-  }
-`;
 
 export default function AuthInputs() {
   const [enteredEmail, setEnteredEmail] = useState<string>('');
@@ -97,7 +39,7 @@ export default function AuthInputs() {
   return (
     <div id="auth-inputs">
       <ControlContainer>
-        <p>
+        {/* <p>
           <Label $invalid={emailNotValid}>Email</Label>
           <Input
             $invalid={emailNotValid}
@@ -124,7 +66,21 @@ export default function AuthInputs() {
               handleInputChange('password', event.target.value)
             }
           />
-        </p>
+        </p> */}
+        <Input
+          label="Email"
+          invalid={emailNotValid}
+          type="email"
+          onChange={(event) => handleInputChange('email', event.target.value)}
+        />
+        <Input
+          label="Password"
+          invalid={passwordNotValid}
+          type="password"
+          onChange={(event) =>
+            handleInputChange('password', event.target.value)
+          }
+        />
       </ControlContainer>
       <div className="actions">
         <TextButton type="button" className="text-button">
