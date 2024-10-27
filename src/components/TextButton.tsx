@@ -1,12 +1,19 @@
-import { styled } from 'styled-components';
+import { ButtonHTMLAttributes, ReactNode } from 'react';
 
-const TextButton = styled.button`
-  color: #f0b322;
-  border: none;
+interface TextButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
+  children: ReactNode;
+}
 
-  &:hover {
-    color: #f0920e;
-  }
-`;
+const TextButton = ({ children, ...props }: TextButtonProps) => {
+  return (
+    <button
+      type="button"
+      className="text-amber-400 hover:text-amber-500"
+      {...props}
+    >
+      {children}
+    </button>
+  );
+};
 
 export default TextButton;
